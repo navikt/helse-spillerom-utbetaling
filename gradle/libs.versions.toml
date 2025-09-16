@@ -40,7 +40,7 @@ sykepengesoknad = "no.nav.helse.flex:sykepengesoknad-kafka:2025.09.09-07.30-baf4
 spleisOkonomi= "com.github.navikt.spleis:sykepenger-okonomi:2025.09.05-14.51-15db36a7"
 
 kafka-clients = { module = "org.apache.kafka:kafka-clients", version.ref = "kafka" }
-jackson-datatype-jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2"
+jackson-datatype-jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0"
 
 
 [bundles]
