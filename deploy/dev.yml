@@ -1,0 +1,32 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    team: speilvendt
+  name: spillerom-utbetaling
+  namespace: speilvendt
+spec:
+  image: {{image}}
+  strategy:
+    type: Recreate
+  port: 8080
+  replicas:
+    min: 1
+    max: 1
+    disableAutoScaling: true
+  liveness:
+    path: isalive
+    initialDelay: 5
+  readiness:
+    path: isready
+    initialDelay: 5
+  kafka:
+    pool: nav-dev
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_17
+        diskAutoresize: true
+        tier: db-f1-micro
+        databases:
+          - name: spillerom-utbetaling
+            envVarPrefix: DATABASE

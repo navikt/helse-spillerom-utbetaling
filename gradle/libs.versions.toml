@@ -1,0 +1,68 @@
+[versions]
+flyway = "11.12.0"
+ktor = "3.3.0"
+testcontainers = "1.21.0"
+spleis="2025.09.01-09.22-dd093777"
+kafka = "3.8.0"
+
+[libraries]
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+hikari = "com.zaxxer:HikariCP:6.3.0"
+postgresJdbcDriver = "org.postgresql:postgresql:42.7.5"
+testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+kotliquery = "com.github.seratch:kotliquery:1.9.1"
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-mock-jvm = { module = "io.ktor:ktor-client-mock-jvm", version.ref = "ktor" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-apache = { module = "io.ktor:ktor-client-apache-jvm", version.ref = "ktor" }
+
+ktor-serialization-jackson = { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
+
+ktor-micrometer = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
+ktor-server-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktor-server-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-callLogging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+
+mock-oauth2-server = "no.nav.security:mock-oauth2-server:2.3.0"
+logback-classic = "ch.qos.logback:logback-classic:1.5.18"
+logback-logstashEncoder = "net.logstash.logback:logstash-logback-encoder:8.1"
+slf4jApi = "org.slf4j:slf4j-api:2.0.17"
+
+micrometerPrometheus = "io.micrometer:micrometer-registry-prometheus:1.15.4"
+sykepengesoknad = "no.nav.helse.flex:sykepengesoknad-kafka:2025.09.09-07.30-baf456bb"
+spleisOkonomi= "com.github.navikt.spleis:sykepenger-okonomi:2025.09.05-14.51-15db36a7"
+
+kafka-clients = { module = "org.apache.kafka:kafka-clients", version.ref = "kafka" }
+jackson-datatype-jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2"
+
+
+[bundles]
+flywayPostgres = [
+    "flyway-core",
+    "flyway-postgres"
+]
+ktorServer = [
+    "ktor-micrometer",
+    "ktor-server-core",
+    "ktor-server-cio",
+    "ktor-server-auth",
+    "ktor-server-auth-jwt",
+    "ktor-server-contentNegotiation",
+    "ktor-server-callLogging",
+    "ktor-server-status-pages",
+]
+ktorServerTest = [
+    "ktor-server-testHost"
+]
+logback = [
+    "logback-classic",
+    "logback-logstashEncoder",
+    "slf4jApi"
+]

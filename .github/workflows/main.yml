@@ -1,0 +1,67 @@
+name: Bygg og deploy Spillerom-Utbetaling
+
+on:
+  push:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
+    name: Bygg, test og lag docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v5
+      - name: Sett opp Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - name: Sett opp Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Bygg med Gradle
+        run: ./gradlew shadowjar -x test
+        env:
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test med testcontainers
+        run: ./gradlew test
+        env:
+          TESTCONTAINERS: true
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test uten testcontainers (h2)
+        run: ./gradlew test --rerun
+        env:
+          TESTCONTAINERS: false
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+      - name: Bygg docker image
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: speilvendt
+          cache_from: type=gha
+          cache_to: type=gha,mode=min
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+
+  deploy-dev:
+    if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
+    name: Deploy til dev
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v5
+      - name: Deploy til NAIS
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: deploy/dev.yml
+          IMAGE: ${{ needs.build.outputs.image }}
+
