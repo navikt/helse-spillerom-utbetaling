@@ -5,6 +5,6 @@ ENV JAVA_OPTS='-XX:MaxRAMPercentage=90'
 
 WORKDIR /app
 
-COPY build/libs/app.jar .
+COPY build/libs/*.jar /app/
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["app.jar"]
