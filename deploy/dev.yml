@@ -30,3 +30,8 @@ spec:
         databases:
           - name: spillerom-utbetaling
             envVarPrefix: DATABASE
+  accessPolicy:
+    outbound:
+      rules:
+        - application: logging
+          namespace: nais-system
