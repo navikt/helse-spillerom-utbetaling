@@ -7,7 +7,7 @@ val kafkaVersion = "3.8.0"
 
 plugins {
     kotlin("jvm") version "2.1.20"
-    id("org.jlleitschuh.gradle.ktlint") version "12.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "13.1.0"
 }
 
 repositories {
