@@ -27,7 +27,7 @@ jobs:
       - name: Sett opp Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Bygg med Gradle
-        run: ./gradlew shadowjar -x test
+        run: ./gradlew build -x test
         env:
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
       - name: Test med testcontainers
