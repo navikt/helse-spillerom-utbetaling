@@ -1,7 +1,7 @@
 [versions]
 flyway = "11.12.0"
 ktor = "3.3.0"
-testcontainers = "1.21.0"
+testcontainers = "1.21.3"
 spleis="2025.09.01-09.22-dd093777"
 kafka = "3.8.0"
 
