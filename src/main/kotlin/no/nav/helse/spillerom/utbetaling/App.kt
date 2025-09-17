@@ -61,6 +61,8 @@ internal fun startApp(configuration: Configuration) {
 class Appen() {
     fun start() {
         appLogger.info("Starter selve appen!!")
+        isAlive = true
+        isReady = true
     }
 }
 
