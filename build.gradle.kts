@@ -1,5 +1,10 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 
+val flywayVersion = "11.12.0"
+val ktorVersion = "3.3.0"
+val testcontainersVersion = "1.21.0"
+val kafkaVersion = "3.8.0"
+
 plugins {
     kotlin("jvm") version "2.1.20"
     id("org.jlleitschuh.gradle.ktlint") version "12.2.0"
@@ -27,27 +32,44 @@ dependencies {
         }
     }
 
-    implementation(libs.bundles.logback)
-    implementation(libs.postgresJdbcDriver)
-    implementation(libs.hikari)
-    implementation(libs.bundles.flywayPostgres)
-    implementation(libs.kotliquery)
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.contentNegotiation)
-    implementation(libs.ktor.serialization.jackson)
-    implementation(libs.jackson.datatype.jsr310)
-    implementation(libs.ktor.client.apache)
-    implementation(libs.bundles.ktorServer)
-    implementation(libs.bundles.logback)
-    implementation(libs.micrometerPrometheus)
-    implementation(libs.sykepengesoknad)
-    implementation(libs.spleisOkonomi)
-    implementation(libs.kafka.clients)
+    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
+    implementation("org.slf4j:slf4j-api:2.0.17")
 
-    testImplementation(libs.bundles.ktorServerTest)
-    testImplementation(libs.testcontainers.postgres)
-    testImplementation(libs.mock.oauth2.server)
-    testImplementation(libs.ktor.client.mock.jvm)
+    implementation("org.postgresql:postgresql:42.7.5")
+    implementation("com.zaxxer:HikariCP:6.3.0")
+
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("org.flywaydb:flyway-database-postgresql:$flywayVersion")
+    implementation("com.github.seratch:kotliquery:1.9.1")
+
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-jackson:$ktorVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0")
+    implementation("io.ktor:ktor-client-apache-jvm:$ktorVersion")
+
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktorVersion")
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-cio:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+
+    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
+    implementation("org.slf4j:slf4j-api:2.0.17")
+
+    implementation("io.micrometer:micrometer-registry-prometheus:1.15.4")
+    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
+
+    testImplementation("io.ktor:ktor-server-test-host$ktorVersion")
+    testImplementation("org.testcontainers:postgresql$testcontainersVersion")
+    testImplementation("no.nav.security:mock-oauth2-server:2.3.0")
+    testImplementation("io.ktor:ktor-client-mock-jvm$ktorVersion")
 
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
