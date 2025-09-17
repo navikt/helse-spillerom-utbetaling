@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet.kafka
+package no.nav.helse.spillerom.utbetaling.kafka
 
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig

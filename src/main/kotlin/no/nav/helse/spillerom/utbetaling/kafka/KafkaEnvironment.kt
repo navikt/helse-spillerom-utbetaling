@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet.kafka
+package no.nav.helse.spillerom.utbetaling.kafka
 
 data class KafkaEnvironment(
     val KAFKA_BROKERS: String = getEnvVar("KAFKA_BROKERS"),

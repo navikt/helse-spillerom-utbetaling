@@ -1,6 +1,6 @@
-package no.nav.helse.bakrommet.infrastruktur.db
+package no.nav.helse.spillerom.utbetaling.infrastruktur.db
 
-import no.nav.helse.bakrommet.Configuration
+import no.nav.helse.spillerom.utbetaling.Configuration
 
 class DBModule(configuration: Configuration.DB) {
     val dataSource = DataSourceBuilder(configuration).build()

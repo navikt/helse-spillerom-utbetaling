@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet.util
+package no.nav.helse.spillerom.utbetaling.util
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

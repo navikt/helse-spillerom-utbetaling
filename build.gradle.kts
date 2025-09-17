@@ -65,10 +65,10 @@ dependencies {
     implementation("io.micrometer:micrometer-registry-prometheus:1.15.4")
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
-    testImplementation("io.ktor:ktor-server-test-host$ktorVersion")
-    testImplementation("org.testcontainers:postgresql$testcontainersVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.testcontainers:postgresql:$testcontainersVersion")
     testImplementation("no.nav.security:mock-oauth2-server:2.3.0")
-    testImplementation("io.ktor:ktor-client-mock-jvm$ktorVersion")
+    testImplementation("io.ktor:ktor-client-mock-jvm:$ktorVersion")
 
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")

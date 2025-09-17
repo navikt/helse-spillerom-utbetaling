@@ -1,12 +1,8 @@
-package no.nav.helse.bakrommet.infrastruktur.db
+package no.nav.helse.spillerom.utbetaling.infrastruktur.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.micrometer.core.instrument.Clock
-import io.micrometer.prometheusmetrics.PrometheusConfig
-import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
-import io.prometheus.metrics.model.registry.PrometheusRegistry
-import no.nav.helse.bakrommet.Configuration
+import no.nav.helse.spillerom.utbetaling.Configuration
 import javax.sql.DataSource
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -22,13 +18,6 @@ class DataSourceBuilder(configuration: Configuration.DB) {
             initializationFailTimeout = 1.minutes.inWholeMilliseconds
             connectionTimeout = 5.seconds.inWholeMilliseconds
             leakDetectionThreshold = 30.seconds.inWholeMilliseconds
-
-            metricRegistry =
-                PrometheusMeterRegistry(
-                    PrometheusConfig.DEFAULT,
-                    PrometheusRegistry.defaultRegistry,
-                    Clock.SYSTEM,
-                )
         }
 
     fun build(): DataSource = HikariDataSource(hikariConfig)

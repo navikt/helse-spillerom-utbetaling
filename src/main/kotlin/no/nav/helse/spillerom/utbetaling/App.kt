@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet
+package no.nav.helse.spillerom.utbetaling
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -7,7 +7,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
-import no.nav.helse.bakrommet.infrastruktur.db.DBModule
+import no.nav.helse.spillerom.utbetaling.infrastruktur.db.DBModule
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

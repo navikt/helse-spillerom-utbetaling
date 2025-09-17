@@ -1,8 +1,8 @@
-package no.nav.helse.bakrommet.infrastruktur.db
+package no.nav.helse.spillerom.utbetaling.infrastruktur.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import no.nav.helse.bakrommet.Configuration
+import no.nav.helse.spillerom.utbetaling.Configuration
 import org.flywaydb.core.Flyway
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds

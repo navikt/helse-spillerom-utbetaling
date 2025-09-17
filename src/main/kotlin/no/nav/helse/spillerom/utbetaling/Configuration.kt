@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet
+package no.nav.helse.spillerom.utbetaling
 
 data class Configuration(
     val db: DB,

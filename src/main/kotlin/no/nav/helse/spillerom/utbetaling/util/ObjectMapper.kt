@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet.util
+package no.nav.helse.spillerom.utbetaling.util
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.JsonNode

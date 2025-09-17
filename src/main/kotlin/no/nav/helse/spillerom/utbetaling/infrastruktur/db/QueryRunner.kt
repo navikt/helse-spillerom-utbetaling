@@ -1,4 +1,4 @@
-package no.nav.helse.bakrommet.infrastruktur.db
+package no.nav.helse.spillerom.utbetaling.infrastruktur.db
 
 import kotliquery.Row
 import kotliquery.Session
