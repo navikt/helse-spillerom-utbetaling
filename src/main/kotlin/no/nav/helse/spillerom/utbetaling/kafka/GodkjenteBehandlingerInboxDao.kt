@@ -63,6 +63,19 @@ class GodkjenteBehandlingerInboxDao private constructor(private val db: QueryRun
             "outbox_id" to outboxId,
         )
     }
+
+    fun eksisterer(outboxId: Long): Boolean {
+        return db.list(
+            """
+            SELECT 1 FROM godkjente_behandlinger_inbox
+            WHERE outbox_id = :outbox_id
+            LIMIT 1
+            """.trimIndent(),
+            "outbox_id" to outboxId,
+        ) { rs ->
+            rs.int(1)
+        }.isNotEmpty()
+    }
 }
 
 data class GodkjentBehandlingInbox(

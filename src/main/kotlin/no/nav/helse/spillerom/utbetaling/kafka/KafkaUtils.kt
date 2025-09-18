@@ -1,9 +1,12 @@
 package no.nav.helse.spillerom.utbetaling.kafka
 
 import org.apache.kafka.clients.CommonClientConfigs
+import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.config.SslConfigs
+import org.apache.kafka.common.serialization.Deserializer
 import org.apache.kafka.common.serialization.Serializer
+import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import java.util.Properties
 import kotlin.reflect.KClass
@@ -39,4 +42,17 @@ fun Properties.toProducerConfig(
         it.putAll(this)
         it[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = valueSerializer.java
         it[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = keySerializer.java
+    }
+
+fun Properties.toConsumerConfig(
+    valueDeserializer: KClass<out Deserializer<out Any>>,
+    keyDeserializer: KClass<out Deserializer<out Any>> = StringDeserializer::class,
+): Properties =
+    Properties().also {
+        it.putAll(this)
+        it[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = valueDeserializer.java
+        it[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = keyDeserializer.java
+        it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
+        it[ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG] = "false"
+        it[ConsumerConfig.GROUP_ID_CONFIG] = "spillerom-utbetaling-consumer"
     }

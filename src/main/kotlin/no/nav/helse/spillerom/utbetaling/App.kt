@@ -8,6 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
 import no.nav.helse.spillerom.utbetaling.infrastruktur.db.DBModule
+import no.nav.helse.spillerom.utbetaling.kafka.KafkaConsumerImpl
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -53,16 +54,31 @@ internal fun startApp(configuration: Configuration) {
             }.start(true)
         }
         launch {
-            Appen().start()
+            Appen(dataSource).start()
         }
     }
 }
 
-class Appen() {
+class Appen(private val dataSource: javax.sql.DataSource) {
+    private lateinit var kafkaConsumer: KafkaConsumerImpl
+
     fun start() {
         appLogger.info("Starter selve appen!!")
+
+        // Start Kafka consumer
+        kafkaConsumer = KafkaConsumerImpl(dataSource)
+        kafkaConsumer.start()
+        appLogger.info("Kafka consumer startet")
+
         isAlive = true
         isReady = true
+    }
+
+    fun stop() {
+        appLogger.info("Stopper appen")
+        kafkaConsumer.stop()
+        isAlive = false
+        isReady = false
     }
 }
 

@@ -112,4 +112,40 @@ internal class GodkjenteBehandlingerInboxDaoTest {
 
         assertTrue(ubehandlede.size <= limit)
     }
+
+    @Test
+    fun `eksisterer returnerer true når outbox-id finnes`() {
+        val outboxId = 66666L
+        val payload = """{"test": "eksisterer"}"""
+
+        // Sjekk at den ikke eksisterer først
+        assertTrue(!dao.eksisterer(outboxId))
+
+        // Sett inn behandling
+        dao.settInn(outboxId, payload)
+
+        // Sjekk at den nå eksisterer
+        assertTrue(dao.eksisterer(outboxId))
+    }
+
+    @Test
+    fun `eksisterer returnerer false når outbox-id ikke finnes`() {
+        val outboxId = 77777L
+
+        // Sjekk at den ikke eksisterer
+        assertTrue(!dao.eksisterer(outboxId))
+    }
+
+    @Test
+    fun `eksisterer returnerer true selv etter at behandling er markert som behandlet`() {
+        val outboxId = 88888L
+        val payload = """{"test": "behandlet"}"""
+
+        // Sett inn og marker som behandlet
+        dao.settInn(outboxId, payload)
+        dao.markerSomBehandlet(outboxId)
+
+        // Sjekk at den fortsatt eksisterer
+        assertTrue(dao.eksisterer(outboxId))
+    }
 }
