@@ -6,7 +6,7 @@ val testcontainersVersion = "1.21.0"
 val kafkaVersion = "3.8.0"
 
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.2.20"
     id("org.jlleitschuh.gradle.ktlint") version "12.2.0"
 }
 
