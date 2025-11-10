@@ -27,6 +27,7 @@ spec:
       - type: POSTGRES_17
         diskAutoresize: true
         tier: db-f1-micro
+        cascadingDelete: true
         databases:
           - name: spillerom-utbetaling
             envVarPrefix: DATABASE

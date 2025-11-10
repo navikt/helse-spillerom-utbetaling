@@ -30,7 +30,6 @@ private fun shouldCauseRestart(ex: Throwable): Boolean =
 
 internal fun startApp(configuration: Configuration) {
     appLogger.info("Setter opp data source")
-    val dataSource = instansierDatabase(configuration.db)
 
     // val applicationContext = Dispatchers.IO (?)
     val applicationContext = Executors.newFixedThreadPool(4).asCoroutineDispatcher()
@@ -54,21 +53,16 @@ internal fun startApp(configuration: Configuration) {
             }.start(true)
         }
         launch {
-            Appen(dataSource).start()
+            Appen().start()
         }
     }
 }
 
-class Appen(private val dataSource: javax.sql.DataSource) {
+class Appen() {
     private lateinit var kafkaConsumer: KafkaConsumerImpl
 
     fun start() {
         appLogger.info("Starter selve appen!!")
-
-        // Start Kafka consumer
-        kafkaConsumer = KafkaConsumerImpl(dataSource)
-        kafkaConsumer.start()
-        appLogger.info("Kafka consumer startet")
 
         isAlive = true
         isReady = true
@@ -82,7 +76,6 @@ class Appen(private val dataSource: javax.sql.DataSource) {
     }
 }
 
-internal fun instansierDatabase(configuration: Configuration.DB) = DBModule(configuration = configuration).also { it.migrate() }.dataSource
 
 internal fun Application.helsesjekker() {
     routing {
