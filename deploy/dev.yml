@@ -22,15 +22,6 @@ spec:
     initialDelay: 5
   kafka:
     pool: nav-dev
-  gcp:
-    sqlInstances:
-      - type: POSTGRES_17
-        diskAutoresize: true
-        tier: db-f1-micro
-        cascadingDelete: true
-        databases:
-          - name: spillerom-utbetaling
-            envVarPrefix: DATABASE
   accessPolicy:
     outbound:
       rules:
