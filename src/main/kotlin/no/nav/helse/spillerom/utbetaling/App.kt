@@ -7,7 +7,6 @@ import io.ktor.server.engine.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
-import no.nav.helse.spillerom.utbetaling.infrastruktur.db.DBModule
 import no.nav.helse.spillerom.utbetaling.kafka.KafkaConsumerImpl
 import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
@@ -75,7 +74,6 @@ class Appen() {
         isReady = false
     }
 }
-
 
 internal fun Application.helsesjekker() {
     routing {
